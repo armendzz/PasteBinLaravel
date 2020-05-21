@@ -20,3 +20,4 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 Route::resource('/categories', 'CategoriesController');
 Route::resource('/p', 'PastesController');
+Route::get('/home', 'HomeController@home')->name('profile');

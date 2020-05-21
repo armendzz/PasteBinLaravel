@@ -20,6 +20,26 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home')->with('pastes', Post::all());
+        $user = auth()->id();
+        $userpaste = Post::where('user_id', '=', $user)->latest()->take(5)->get();
+        
+        
+       
+
+
+        $paste = Post::where('status', '=', 'public')->latest()->take(5)->get();
+      // dd(auth()->id());
+         return view('home')->with('pastes', $paste)->with('userpastes', $userpaste);
+    }
+
+
+    public function home()
+    {
+         
+        $user = auth()->id();
+        $userpaste = Post::where('user_id', '=', $user)->latest()->get();
+
+        return view('auth.profile')->with('posts', $userpaste);
+
     }
 }

@@ -12,11 +12,14 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
      <link rel="stylesheet" href="http://paster.manjurulhoque.com/static/css/prism-okadia.css">
+     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
+<link rel="stylesheet" href="{{ asset('css/prism.css') }}">
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
@@ -35,7 +38,7 @@
                 
                     <ul class="navbar-nav mr-auto">
                                <li class="nav-item">
-                               <a class="btn btn-primary" href="#">PASTE+</a>
+                               <a class="btn btn-primary" href="/">PASTE+</a>
                                </li>
                                   <li class="nav-item">
                                     <a class="nav-link " href="/faq">Faq</a>
@@ -67,6 +70,9 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="/home"">
+                                        My Pastes
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -76,8 +82,12 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
+                                   
+
                                 </div>
+                                
                             </li>
+                            
                         @endguest
                     </ul>
                 </div>
@@ -88,5 +98,47 @@
             @yield('content')
         </main>
     </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/prism.js') }}" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
+
+   {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/prism.min.js" defer></script> --}}
+  {{--  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js" defer></script> --}}
+  <script type="text/javascript">
+    let clipboard = new ClipboardJS('#copy-to-clipboard');
+
+    clipboard.on('success', function (e) {
+        $(e.trigger).text("Copied!");
+        e.clearSelection();
+        setTimeout(function () {
+            $(e.trigger).text("Copy");
+        }, 5000);
+    });
+
+    clipboard.on('error', function (e) {
+        $(e.trigger).text("Can't in Safari");
+        setTimeout(function () {
+            $(e.trigger).text("Copy");
+        }, 2500);
+    });
+
+    // embed clipboard
+    let embed_clipboard = new ClipboardJS('#embed-clipboard');
+
+    embed_clipboard.on('success', function (e) {
+        $(e.trigger).text("Copied!");
+        e.clearSelection();
+        setTimeout(function () {
+            $(e.trigger).text("Copy");
+        }, 5000);
+    });
+
+    embed_clipboard.on('error', function (e) {
+        $(e.trigger).text("Can't in Safari");
+        setTimeout(function () {
+            $(e.trigger).text("Copy");
+        }, 2500);
+    });
+</script>
 </body>
 </html>

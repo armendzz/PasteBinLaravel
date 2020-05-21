@@ -23,6 +23,8 @@
                         </div>
                     @endif
 
+                    {{ $msg ?? '' }}
+
                  <form action="{{ route('p.store')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <label for="content"> content</label>
@@ -86,8 +88,8 @@
               <ul class="list-group list-group-flush">
                 @foreach($pastes as $paste)
                 <li class="list-group-item">
-                    <h5>{{ $paste->title }}</h5>
-                <label>Expire:  {{ $paste->expire }}</label> <strong>|</strong> <label>syntax:  {{ $paste->syntax }}</label> 
+                    <h5><a href="/p/{{$paste->url}}">{{ $paste->title }}</a></h5>
+                    <label>{{ $paste->syntax }}</label> <strong>|</strong> <label>  {{ $paste->created_at->diffForHumans() }}</label> 
                 </li>
 
                     @endforeach
@@ -101,9 +103,13 @@
                 My Recent Pastes
               </div>
               <ul class="list-group list-group-flush">
-                <li class="list-group-item">Cras justo odio</li>
-                <li class="list-group-item">Dapibus ac facilisis in</li>
-                <li class="list-group-item">Vestibulum at eros</li>
+                @foreach($userpastes as $paste)
+                <li class="list-group-item">
+                  <h5><a href="/p/{{$paste->url}}">{{ $paste->title }}</a></h5>
+                <label>Expire:  {{ $paste->expire }}</label> <strong>|</strong> <label>syntax:  {{ $paste->syntax }}</label> 
+                </li>
+
+                    @endforeach
               </ul>
             </div>
 
@@ -114,16 +120,17 @@
               <ul class="list-group list-group-flush">
                 @foreach($pastes as $paste)
                 <li class="list-group-item">
-                    <h5>{{ $paste->title }}</h5>
+                  <h5><a href="/p/{{$paste->url}}">{{ $paste->title }}</a></h5>
                 <label>Expire:  {{ $paste->expire }}</label> <strong>|</strong> <label>syntax:  {{ $paste->syntax }}</label> 
                 </li>
 
                     @endforeach
               </ul>
-              <center class="mt-2 mb-2"> <a href="/p"> view all</a></center>
+            
             </div>
 
             @endguest
+            <center class="mt-2 mb-2"> <a href="/p"> view all</a></center>
         </div>
     </div>
 </div>
