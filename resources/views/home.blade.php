@@ -7,21 +7,31 @@
 {
   width:100%;
 }
+
+
+
 </style>
 
 
 
 <div class="container">
+  @if (session('success'))
+  <div class="alert alert-success" role="alert">
+      {{ session('success') }}
+  </div>
+   @endif
+   @if (session('error'))
+   <div class="alert alert-danger" role="alert">
+       {{ session('error') }}
+   </div>
+    @endif
     <div class="row justify-content-center">
         <div class="col-md-9 mt-3 mb-2 border">
-           
+        
                 <div class="mb-2 mt-2">
                 
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+                
+                
 
                     {{ $msg ?? '' }}
 
@@ -30,20 +40,26 @@
                     <label for="content"> content</label>
                     <textarea class="textarea" name="content" rows="18"></textarea>
 
-                    <div class="col-md-6 d-inline-block">
+                    <div class="col-md-5 d-inline-block">
+                      
                       <p>title</p>
-                    <input type="text" name="title">
+                    <input class="form-control" type="text" name="title">
+                      
+                    
                      <p>syntax</p>
-                    <select name="syntax">
-                        <option value="JavaScript">JavaScript</option>
-                        <option value="HTML">HTML</option>
-                        <option value="PHP">PHP</option>
-                        <option value="CSS">CSS</option>
-                    </select>
+                     <select name="syntax" class="custom-select" >
+                      <option value="JavaScript">JavaScript</option>
+                      <option value="HTML">HTML</option>
+                      <option value="PHP">PHP</option>
+                      <option value="CSS">CSS</option>
+                  </select>
+                  
+                  
                     </div>
-                     <div class="col-md-3 d-inline-block">
+                    
+                     <div class="col-md-5 d-inline-block float-right">
                        <p>expire</p>
-                    <select name="expire">
+                    <select class="custom-select" name="expire">
                         <option value="never">Never</option>
                         <option value="10m">10 Minutes</option>
                         <option value="1h">1 Hour</option>
@@ -52,28 +68,28 @@
                     </select>
                       <p>status</p>
                        @guest
-                    <select name="status">
+                    <select class="custom-select" name="status">
                         <option value="public">Public</option>
                         <option value="unlisted">Unlisted</option>
                     </select>
                     @else
-                       <select name="status">
+                       <select class="custom-select" name="status">
                         <option value="public">Public</option>
                         <option value="unlisted">Unlisted</option>
                         <option value="private">Private</option>
                     </select>
+                    
                     @endguest
 
                     
 
               </div>
-
-             <div class="col-md-3 mt-3">
-                    <button type="submit" class="btn btn-primary">Paste +</button> 
-                </div>
-
+              <div class="col-md-3 mt-2">
+              <button type="submit" class="btn btn-lg btn-success">Paste +</button> 
+              </div>
                 </form>
         </div>
+      
  </div>
         <div class="col-md-3 mt-3">
 
@@ -138,7 +154,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/prism.min.js"></script>
    
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/components/prism-livescript.min.js"></script>
 
 
 @endsection

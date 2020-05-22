@@ -53,7 +53,7 @@ class PastesController extends Controller
     {
       $unurl = Str::random(11);
       $user = auth()->id() ?: '0';
-        Post::create([
+        $paste = Post::create([
             
           // dd($user)
            
@@ -68,8 +68,8 @@ class PastesController extends Controller
         ]);
 
         session()->flash('success', 'Paste Created Successfully.');
-
-        return redirect(route('p.index'));
+          // dd($paste->toArray()['url']);
+        return redirect(route('p.show', $paste->toArray()['url']));
     }
 
     /**
@@ -94,7 +94,19 @@ class PastesController extends Controller
         } else {
             $user = User::find($object->user_id);
         } 
-       return view('pastes.show')->with('paste', $object)->with('user', $user)->with('match', $match);
+        if ($paste1['status'] === 'private'){
+            if ($match){
+                return view('pastes.show')->with('paste', $object)->with('user', $user)->with('match', $match);
+            } else {
+                session()->flash('error', 'This is a private Paste.');
+
+                return redirect(route('home'));
+            }
+        } else {
+           return view('pastes.show')->with('paste', $object)->with('user', $user)->with('match', $match);
+        }
+        
+       
 
     }
 

@@ -5,10 +5,15 @@
 <div class="container">
 
 	@if (session('success'))
-                        <div class="alert alert-danger" role="alert">
-                            {{ session('success') }}
-                        </div>
-                    @endif
+	<div class="alert alert-success" role="alert">
+		{{ session('success') }}
+	</div>
+	 @endif
+	 @if (session('error'))
+	 <div class="alert alert-danger" role="alert">
+		 {{ session('error') }}
+	 </div>
+	  @endif
 	<div class="col-md-12 border">
 		<div class="card mt-3 mb-3"> 
 			<div class="card-header">All Public Pastes</div>
